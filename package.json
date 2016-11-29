@@ -1,0 +1,29 @@
+{
+  "name": "knockout-selectize",
+  "version": "1.0.0",
+  "description": "knockout<->selectize adapter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krnlde/knockout-selectize.git"
+  },
+  "keywords": [
+    "knockout",
+    "selectize",
+    "adapter"
+  ],
+  "author": "Kai Dorschner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krnlde/knockout-selectize/issues"
+  },
+  "homepage": "https://github.com/krnlde/knockout-selectize#readme",
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "knockout": "^3.4.1",
+    "selectize": "^0.12.4"
+  }
+}
