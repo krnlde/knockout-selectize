@@ -1,15 +1,10 @@
-import $ from 'jquery';
-import ko from 'knockout';
-
-import 'selectize';
-
 // thanks to https://gist.github.com/DrSammyD/3ae055ca1280ccd9a4ae
 //
 // also we can copy some knowledge from this angular dircetive which works great: https://github.com/machineboy2045/angular-selectize/blob/master/dist/angular-selectize.js
 
 let beQuiet = false;
 ko.bindingHandlers.selectizeOptions = {
-  init: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) => {
+  init: (element, valueAccessor, allBindingsAccessor) => {
     let $element = $(element);
 
     $element.selectize({
@@ -18,8 +13,8 @@ ko.bindingHandlers.selectizeOptions = {
       labelField: ko.unwrap(allBindingsAccessor.get('optionsText')) || 'title',
       searchField: ko.unwrap(allBindingsAccessor.get('optionsSearch')) || 'title',
       placeholder: ko.unwrap(allBindingsAccessor.get('optionsCaption')) || null,
-      options: ko.mapping.toJS(valueAccessor()),
-      onChange: (value) => {
+      options: ko.toJS(valueAccessor()),
+      onChange: function (value) {
         if (beQuiet) return;
         let accessor = allBindingsAccessor.get('selectize');
         if (ko.isObservable(accessor)) {
@@ -29,17 +24,17 @@ ko.bindingHandlers.selectizeOptions = {
         }
       },
       render: {
-        option: (item, escape) => {
+        option: function (item, escape) {
           const labelField = this.settings.labelField;
           if (ko.isObservable(labelField)) {
-            return '<div class="option">' + labelField(ko.mapping.toJS(item), escape) + '</div>';
+            return '<div class="option">' + labelField(ko.toJS(item), escape) + '</div>';
           }
           return '<div class="option">' + escape(ko.unwrap(ko.unwrap(item)[labelField])) + '</div>';
         },
-        item: (item, escape) => {
+        item: function (item, escape) {
           const labelField = this.settings.labelField;
           if (ko.isObservable(labelField)) {
-            return '<div class="item">' + labelField(ko.mapping.toJS(item), escape) + '</div>';
+            return '<div class="item">' + labelField(ko.toJS(item), escape) + '</div>';
           }
           return '<div class="item">' + escape(ko.unwrap(ko.unwrap(item)[labelField])) + '</div>';
         }
@@ -48,13 +43,13 @@ ko.bindingHandlers.selectizeOptions = {
 
     ko.utils.domNodeDisposal.addDisposeCallback(element, () => $element[0].selectize.destroy() );
   },
-  update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) => {
+  update: (element, valueAccessor) => {
     const $el = $(element);
     const selectizeInstance = $el[0].selectize;
     const options = valueAccessor();
 
     selectizeInstance.clearOptions();
-    selectizeInstance.load((cb) => cb(ko.mapping.toJS(options)) );
+    selectizeInstance.load((cb) => void cb(ko.toJS(options)) );
   }
 }
 ko.bindingHandlers.selectizeCaption = {
@@ -65,7 +60,7 @@ ko.bindingHandlers.selectizeCaption = {
 };
 
 ko.bindingHandlers.selectize = {
-  init: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) => {
+  init: (element, valueAccessor) => {
     let value = valueAccessor();
     let selectizeInstance = element.selectize;
 
@@ -81,5 +76,5 @@ ko.bindingHandlers.selectize = {
       });
     }
   },
-  after: ["selectizeOptions"]
+  after: ['selectizeOptions']
 };
