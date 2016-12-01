@@ -24,16 +24,16 @@ This will initialize the selectize in the background. The value provided will be
 ### selectizeOptions
 An array of objects that'll be passed to selectize.js. If this array is a knockout observableArray the options will be modifiable at runtime.
 
-### selectizeCaption (Default: `null`)
+### selectizePlaceholder (Default: `null`)
 Defines a placeholder when nothing is selected.
 
-### optionsText (Default: `title`)
+### optionsText (Default: `"title"`)
 Defines which object key to use for the option text / label.
 
-### optionsSearch (Default: `title`)
+### optionsSearch (Default: `"title"`)
 Defines which object key to use for search.
 
-### optionsValue (Default: `id`)
+### optionsValue (Default: `"id"`)
 Defines which object key to used as form value.
 
 # Thanks
