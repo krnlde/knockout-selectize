@@ -1,3 +1,6 @@
+# About
+knockout-selectize is a knockout adapter for the popular [selectize.js](https://github.com/selectize/selectize.js) library. This adapter is capable of two-way-databinding the selected value as well as its options.
+
 # Install
 `> npm install knockout-selectize`
 
