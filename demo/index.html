@@ -15,7 +15,7 @@
       <div class="jumbotron">
         <h1>Presidential election</h1>
       </div>
-      
+
       <form>
         <div class="form-group">
           <select data-bind="selectize: selected, selectizeOptions: availableOptions, optionsText: 'name', optionsSearch: 'name', optionsValue: 'id', selectizePlaceholder: 'Select your president'"></select>
@@ -34,24 +34,36 @@
     <script src="../node_modules/selectize/dist/js/standalone/selectize.js"></script>
     <script src="../node_modules/knockout/build/output/knockout-latest.js"></script>
 
-    <script src="../dist/knockout-selectize.js"></script>
+    <script src="../index.js"></script>
 
     <script type="text/javascript">
       class ViewModel {
         constructor () {
           this.selected = ko.observable();
-          this.availableOptions = ko.observableArray([
+          this.availableOptions = ko.observableArray([]);
+
+          const fillLater = [
             {id: 0, name: 'Obama'},
             {id: 1, name: 'Clinton'},
             {id: 2, name: 'Trump'},
             {id: 3, name: 'Sanders'},
-          ]);
-
-          // this.selected(this.availableOptions()[0]);
+          ];
+          setInterval(() => {
+            if (fillLater.length) this.availableOptions.push(fillLater.pop());
+          }, 2000);
         }
       }
-      
-      ko.applyBindings(new ViewModel());
+      const vm = new ViewModel();
+      ko.applyBindings(vm);
+
+
+      vm.availableOptions.subscribe((newArray) => {
+        // setTimeout(() => {
+          if (newArray.length && !vm.selected()) {
+            vm.selected(newArray[0]);
+          }
+        // });
+      });
     </script>
   </body>
 </html>

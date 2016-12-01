@@ -46,10 +46,18 @@ ko.bindingHandlers.selectizeOptions = {
   update: (element, valueAccessor) => {
     const $el = $(element);
     const selectizeInstance = $el[0].selectize;
-    const options = valueAccessor();
+    const options = [...ko.unwrap(valueAccessor())];
+    Object.values(selectizeInstance.options).forEach((option) => {
+      if (options.includes(option)) options.splice(options.indexOf(option), 1);
+      else selectizeInstance.removeOption(option[selectizeInstance.settings.valueField]);
+    });
 
-    selectizeInstance.clearOptions();
-    selectizeInstance.load((cb) => void cb(ko.toJS(options)) );
+    options.forEach((option) => {
+      selectizeInstance.addOption(option);
+    });
+
+    selectizeInstance.refreshOptions(selectizeInstance.isFocused);
+    selectizeInstance.refreshItems();
   }
 }
 
@@ -62,21 +70,11 @@ ko.bindingHandlers.selectizePlaceholder = {
 };
 
 ko.bindingHandlers.selectize = {
-  init: (element, valueAccessor) => {
+  update: (element, valueAccessor) => {
     let value = valueAccessor();
     let selectizeInstance = element.selectize;
-
-    if (ko.isObservable(value)) {
-      selectizeInstance.setValue(ko.toJS(value) == null ? null : ko.toJS(value)[selectizeInstance.settings.valueField], /* silent */ true);
-      value.subscribe((newValue) => {
-        if (beQuiet) return;
-        let rendered = ko.toJS(newValue) == null ? null : ko.toJS(newValue)[selectizeInstance.settings.valueField];
-        if (rendered == selectizeInstance.getValue()) return;
-        beQuiet = true;
-        selectizeInstance.setValue(rendered, /* silent */ true);
-        beQuiet = false;
-      });
-    }
+    // console.log('Update Selected', ko.unwrap(value()));
+    selectizeInstance.setValue(ko.unwrap(value) == null ? null : ko.unwrap(value)[selectizeInstance.settings.valueField], /* silent */ true);
   },
   after: ['selectizeOptions']
 };
