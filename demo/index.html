@@ -13,10 +13,10 @@
   <body>
     <div class="container">
       <!-- ko if: selected -->
-      <h2 data-bind="text: selected().title"></h2>
+        <h2>Selected president: <span data-bind="text: selected().name"></span></h2>
       <!-- /ko -->
 
-      <select data-bind="selectize: selected, selectizeOptions: availableOptions"></select>
+      <select data-bind="selectize: selected, selectizeOptions: availableOptions, optionsText: 'name', optionsSearch: 'name', optionsValue: 'id'"></select>
     </div>
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -26,17 +26,21 @@
     <script src="../dist/knockout-selectize.js"></script>
 
     <script type="text/javascript">
-      let vm = {
-        selected: ko.observable(),
-        availableOptions: ko.observableArray([
-          {id: 0, title: 'A'},
-          {id: 1, title: 'B'},
-          {id: 2, title: 'C'},
-          {id: 3, title: 'D'},
-        ]),
-      };
+      class ViewModel {
+        constructor () {
+          this.selected = ko.observable();
+          this.availableOptions = ko.observableArray([
+            {id: 0, name: 'Obama'},
+            {id: 1, name: 'Clinton'},
+            {id: 2, name: 'Trump'},
+            {id: 3, name: 'Sanders'},
+          ]);
 
-      ko.applyBindings(vm);
+          this.selected(this.availableOptions()[0]);
+        }
+      }
+      
+      ko.applyBindings(new ViewModel());
     </script>
   </body>
 </html>
