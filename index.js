@@ -12,7 +12,7 @@ ko.bindingHandlers.selectizeOptions = {
       valueField: ko.unwrap(allBindingsAccessor.get('optionsValue')) || 'id',
       labelField: ko.unwrap(allBindingsAccessor.get('optionsText')) || 'title',
       searchField: ko.unwrap(allBindingsAccessor.get('optionsSearch')) || 'title',
-      placeholder: ko.unwrap(allBindingsAccessor.get('optionsCaption')) || null,
+      placeholder: ko.unwrap(allBindingsAccessor.get('selectizePlaceholder')) || null,
       options: ko.toJS(valueAccessor()),
       onChange: function (value) {
         if (beQuiet) return;
@@ -52,10 +52,12 @@ ko.bindingHandlers.selectizeOptions = {
     selectizeInstance.load((cb) => void cb(ko.toJS(options)) );
   }
 }
-ko.bindingHandlers.selectizeCaption = {
+
+ko.bindingHandlers.selectizePlaceholder = {
   update: (element, valueAccessor) => {
-    $(element).data('selectize').settings.placeholder = ko.unwrap(valueAccessor());
-    $(element).data('selectize').updatePlaceholder();
+    const selectize = $(element).data('selectize');
+    selectize.settings.placeholder = ko.unwrap(valueAccessor());
+    selectize.updatePlaceholder();
   }
 };
 

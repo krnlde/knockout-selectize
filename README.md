@@ -13,17 +13,25 @@ With all available properties:
 <select data-bind="selectize: selected, selectizeOptions: availableOptions, optionsText: 'name', optionsSearch: 'name', optionsValue: 'id'"></select>
 ```
 
-# Configure
+# Configuring with knockout bindingHandlers
 
 ### selectize
+This will initialize the selectize in the background. The value provided will be the selected value. It is recommended to put in a knockout observable in there.
 
 ### selectizeOptions
+An array of objects that'll be passed to selectize.js. If this array is a knockout observableArray the options will be modifiable at runtime.
 
-### optionsText
+### selectizeCaption (Default: `null`)
+Defines a placeholder when nothing is selected.
 
-### optionsSearch
+### optionsText (Default: `title`)
+Defines which object key to use for the option text / label.
 
-### optionsValue
+### optionsSearch (Default: `title`)
+Defines which object key to use for search.
+
+### optionsValue (Default: `id`)
+Defines which object key to used as form value.
 
 # Thanks
 A big thanks goes to DrSammyD with his gist: https://gist.github.com/DrSammyD/3ae055ca1280ccd9a4ae.

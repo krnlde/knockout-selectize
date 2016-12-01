@@ -12,11 +12,22 @@
   </head>
   <body>
     <div class="container">
-      <!-- ko if: selected -->
-        <h2>Selected president: <span data-bind="text: selected().name"></span></h2>
-      <!-- /ko -->
+      <div class="jumbotron">
+        <h1>Presidential election</h1>
+      </div>
+      
+      <form>
+        <div class="form-group">
+          <select data-bind="selectize: selected, selectizeOptions: availableOptions, optionsText: 'name', optionsSearch: 'name', optionsValue: 'id', selectizePlaceholder: 'Select your president'"></select>
+        </div>
+      </form>
 
-      <select data-bind="selectize: selected, selectizeOptions: availableOptions, optionsText: 'name', optionsSearch: 'name', optionsValue: 'id'"></select>
+      <!-- ko if: selected -->
+        <h3>Selected president: <u data-bind="text: selected().name"></u></h3>
+
+        <h3>Raw selected object</h3>
+        <div class="well"><pre><code data-bind="text: JSON.stringify(selected())"></code></pre></div>
+      <!-- /ko -->
     </div>
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -36,7 +47,7 @@
             {id: 3, name: 'Sanders'},
           ]);
 
-          this.selected(this.availableOptions()[0]);
+          // this.selected(this.availableOptions()[0]);
         }
       }
       

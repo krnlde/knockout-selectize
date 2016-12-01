@@ -16,7 +16,7 @@ ko.bindingHandlers.selectizeOptions = {
       valueField: ko.unwrap(allBindingsAccessor.get('optionsValue')) || 'id',
       labelField: ko.unwrap(allBindingsAccessor.get('optionsText')) || 'title',
       searchField: ko.unwrap(allBindingsAccessor.get('optionsSearch')) || 'title',
-      placeholder: ko.unwrap(allBindingsAccessor.get('optionsCaption')) || null,
+      placeholder: ko.unwrap(allBindingsAccessor.get('selectizePlaceholder')) || null,
       options: ko.toJS(valueAccessor()),
       onChange: function onChange(value) {
         if (beQuiet) return;
@@ -60,10 +60,12 @@ ko.bindingHandlers.selectizeOptions = {
     });
   }
 };
-ko.bindingHandlers.selectizeCaption = {
+
+ko.bindingHandlers.selectizePlaceholder = {
   update: function update(element, valueAccessor) {
-    $(element).data('selectize').settings.placeholder = ko.unwrap(valueAccessor());
-    $(element).data('selectize').updatePlaceholder();
+    var selectize = $(element).data('selectize');
+    selectize.settings.placeholder = ko.unwrap(valueAccessor());
+    selectize.updatePlaceholder();
   }
 };
 
@@ -86,7 +88,7 @@ ko.bindingHandlers.selectize = {
   },
   after: ['selectizeOptions']
 };
-}).call(this,require("v3go1D"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a1a7528.js","/")
+}).call(this,require("v3go1D"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6c2b9bfb.js","/")
 },{"buffer":3,"v3go1D":5}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
