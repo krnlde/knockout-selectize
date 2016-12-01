@@ -57,7 +57,6 @@ ko.bindingHandlers.selectizeOptions = {
     });
 
     selectizeInstance.refreshOptions(selectizeInstance.isFocused);
-    selectizeInstance.refreshItems();
   }
 }
 
