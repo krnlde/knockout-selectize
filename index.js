@@ -9,12 +9,12 @@ ko.bindingHandlers.selectizeOptions = {
 
     $element.selectize({
       dropdownParent: 'body',
-      valueField: ko.unwrap(allBindingsAccessor.get('optionsValue')) || 'id',
-      labelField: ko.unwrap(allBindingsAccessor.get('optionsText')) || 'title',
+      valueField:  ko.unwrap(allBindingsAccessor.get('optionsValue')) || 'id',
+      labelField:  ko.unwrap(allBindingsAccessor.get('optionsText')) || 'title',
       searchField: ko.unwrap(allBindingsAccessor.get('optionsSearch')) || 'title',
       placeholder: ko.unwrap(allBindingsAccessor.get('selectizePlaceholder')) || null,
-      options: ko.toJS(valueAccessor()),
-      onChange: function (value) {
+      options:     ko.toJS(valueAccessor()),
+      onChange(value) {
         if (beQuiet) return;
         let accessor = allBindingsAccessor.get('selectize');
         if (ko.isObservable(accessor)) {
@@ -24,14 +24,14 @@ ko.bindingHandlers.selectizeOptions = {
         }
       },
       render: {
-        option: function (item, escape) {
+        option(item, escape) {
           const labelField = this.settings.labelField;
           if (ko.isObservable(labelField)) {
             return '<div class="option">' + labelField(ko.toJS(item), escape) + '</div>';
           }
           return '<div class="option">' + escape(ko.unwrap(ko.unwrap(item)[labelField])) + '</div>';
         },
-        item: function (item, escape) {
+        item(item, escape) {
           const labelField = this.settings.labelField;
           if (ko.isObservable(labelField)) {
             return '<div class="item">' + labelField(ko.toJS(item), escape) + '</div>';

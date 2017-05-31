@@ -37,6 +37,7 @@ ko.bindingHandlers.selectizeOptions = {
           beQuiet = false;
         }
       },
+
       render: {
         option: function option(item, escape) {
           var labelField = this.settings.labelField;
@@ -92,7 +93,7 @@ ko.bindingHandlers.selectize = {
   },
   after: ['selectizeOptions']
 };
-}).call(this,require("v3go1D"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_34a1da54.js","/")
+}).call(this,require("v3go1D"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_634adf4c.js","/")
 },{"babel-runtime/core-js/object/values":3,"babel-runtime/helpers/toConsumableArray":4,"buffer":6,"v3go1D":64}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 module.exports = { "default": require("core-js/library/fn/array/from"), __esModule: true };
